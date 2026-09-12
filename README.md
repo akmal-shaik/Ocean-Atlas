@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open [http://127.0.0.1:3000](http://127.0.0.1:3000). The explorer, field notes and comparison page work without an API key. Development and production scripts bind to loopback; do not expose the development server through a public tunnel.
+[**Open the live demo →**](https://akmal-shaik.github.io/Ocean-Atlas/) The explorer, field notes and comparison page work without an API key. Development and production scripts bind to loopback; do not expose the development server through a public tunnel.
 
 Dependencies are pinned in `package-lock.json`. `.npmrc` uses npm's legacy peer resolver because npm 10's optional Expo peer graph failed during the original clean installation; Expo and React Native are not project dependencies.
 
