@@ -4,7 +4,11 @@ Ocean Atlas is an interactive marine field guide built with Next.js, TypeScript,
 
 The collection contains six stylised procedural animals: Atlantic salmon (*Salmo salar*), Atlantic bluefin tuna (*Thunnus thynnus*), whale shark (*Rhincodon typus*), giant squid (*Architeuthis dux*), green turtle (*Chelonia mydas*) and moon jelly (*Aurelia aurita*). It is an educational collection, not an ecosystem simulation or anatomical reconstruction.
 
-Current screenshots are pending. Earlier four-species and ruler-view screenshots were removed because they no longer represented the application.
+## Preview
+
+![Explore marine species](docs/explore.png)
+
+![Compare two marine species](docs/compare.png)
 
 ## Run locally
 
