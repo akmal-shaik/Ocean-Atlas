@@ -6,9 +6,9 @@ The collection contains six stylised procedural animals: Atlantic salmon (*Salmo
 
 ## Preview
 
-![Explore marine species](docs/explore.png)
+![Ocean Atlas underwater explorer](docs/explore.png)
 
-![Compare two marine species](docs/compare.png)
+![Side-by-side species comparison](docs/compare.png)
 
 ## Run locally
 
