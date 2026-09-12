@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-[**Open the live demo**](https://akmal-shaik.github.io/Ocean-Atlas/) The explorer, field notes and comparison page work without an API key. Development and production scripts bind to loopback; do not expose the development server through a public tunnel.
+Open http://127.0.0.1:3000 after starting the development server. The explorer, field notes and comparison page work without an API key. Development and production scripts bind to loopback; do not expose the development server through a public tunnel.
 
 Dependencies are pinned in `package-lock.json`. `.npmrc` uses npm's legacy peer resolver because npm 10's optional Expo peer graph failed during the original clean installation; Expo and React Native are not project dependencies.
 
@@ -115,19 +115,23 @@ See [docs/VERIFICATION.md](docs/VERIFICATION.md) for the current command record 
 
 ## GitHub Pages
 
-The Pages build is separate from the normal Next.js server build:
+**[Open the live demo](https://akmal-shaik.github.io/Ocean-Atlas/)**
+
+The public demo includes the interactive explorer, species information and side-by-side comparisons. AI is disabled in the hosted version; local AI setup is documented above.
+
+### Build and deployment
+
+Generate the static site with:
 
 ```sh
 npm run build:pages
 ```
 
-It copies only the static app shell and shared browser/data modules into an ignored `.pages-staging/` directory, substitutes a static homepage with `aiEnabled={false}`, and runs Next.js with `output: "export"` and `basePath: "/Ocean-Atlas"`. The normal source tree is not renamed or deleted. API routes, the development guide fixture and server-only AI modules are absent from the exported `out/` artifact. The build script checks the hosted-demo notice, base-path-prefixed JavaScript references, referenced files and excluded routes.
+The build uses an isolated `.pages-staging/` directory, with Next.js static export and the `/Ocean-Atlas` base path. API routes, development fixtures and server-only AI modules are excluded from the exported `out/` directory. The normal application source and local AI backend remain unchanged.
 
-The workflow in `.github/workflows/pages.yml` runs `npm ci`, type checking, lint, unit tests and the normal production build for pull requests and pushes to `main`. A successful push to `main` additionally creates and deploys the static Pages artifact. Pull requests never deploy.
+The GitHub Actions workflow in `.github/workflows/pages.yml` installs dependencies, checks types, runs lint and unit tests, and builds the application for pull requests and pushes to `main`. Successful pushes to `main` also build and deploy the static website. Pull requests do not deploy.
 
-Before the first deployment push, open **Settings → Pages** in `akmal-shaik/Ocean-Atlas` and select **GitHub Actions** as the source. Then push the workflow to `main`. A successful deployment is expected at `https://akmal-shaik.github.io/Ocean-Atlas/`; this README does not claim that URL is live before the workflow succeeds.
-
-The hosted demo is static and labels the AI guide unavailable. To use AI, run the project locally with the opt-in environment setup above. Never add an API key to GitHub Pages, repository variables or client-side environment variables.
+No API key is required for the public demo or automated checks. Keep any local API key in the ignored `.env.local` file; never commit it or include it in browser code.
 
 ## Publication posture
 
