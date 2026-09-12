@@ -104,6 +104,10 @@ small {
   color: var(--mint);
   transform: rotate(-25deg);
 }
+.hosted-demo-status {
+  color: var(--mint);
+  margin-top: 3px;
+}
 .mode-switch {
   display: flex;
   padding: 5px;

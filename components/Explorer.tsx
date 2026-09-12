@@ -58,10 +58,12 @@ export function Guide({
   id,
   available,
   endpoint = "/api/ask",
+  hostedDemo = false,
 }: {
   id: SpeciesId;
   available: boolean;
   endpoint?: string;
+  hostedDemo?: boolean;
 }) {
   const [other, setOther] = useState<SpeciesId | "">("");
   const [question, setQuestion] = useState("");
@@ -119,8 +121,9 @@ export function Guide({
       </p>
       {!available && (
         <p className="notice">
-          AI is unavailable in this build. You can still read every source note
-          below.
+          {hostedDemo
+            ? "AI is unavailable in this hosted static demo. Run Ocean Atlas locally with explicit AI configuration to use the guide."
+            : "AI is unavailable in this build. You can still read every source note below."}
         </p>
       )}
       <form onSubmit={submit}>
@@ -335,7 +338,13 @@ function CompareSpecies() {
     </section>
   );
 }
-export default function Explorer({ aiEnabled }: { aiEnabled: boolean }) {
+export default function Explorer({
+  aiEnabled,
+  staticDemo = false,
+}: {
+  aiEnabled: boolean;
+  staticDemo?: boolean;
+}) {
   const [selected, setSelected] = useState<SpeciesId | null>(null);
   const [compare, setCompare] = useState(false);
   const [focusedSpecies, setFocusedSpecies] = useState<SpeciesId | null>(null);
@@ -362,6 +371,11 @@ export default function Explorer({ aiEnabled }: { aiEnabled: boolean }) {
           <span>
             OCEAN <b>ATLAS</b>
             <small>A MARINE FIELD GUIDE</small>
+            {staticDemo && (
+              <small className="hosted-demo-status">
+                HOSTED DEMO · AI UNAVAILABLE
+              </small>
+            )}
           </span>
         </Link>
         <nav className="mode-switch" aria-label="Viewing mode">
@@ -526,7 +540,12 @@ export default function Explorer({ aiEnabled }: { aiEnabled: boolean }) {
                       <p key={e.id}>• {e.text}</p>
                     ))}
                 </section>
-                <Guide key={current.id} id={current.id} available={aiEnabled} />
+                <Guide
+                  key={current.id}
+                  id={current.id}
+                  available={aiEnabled}
+                  hostedDemo={staticDemo}
+                />
                 <section className="source-notes">
                   <h3>Evidence &amp; sources</h3>
                   <p className="muted">

@@ -113,6 +113,22 @@ It reads `.env.local` and sends 22 sequential model requests with no automatic r
 
 See [docs/VERIFICATION.md](docs/VERIFICATION.md) for the current command record and known gaps. Current rendering and bundle measurements are pending; the obsolete four-species measurements were removed.
 
+## GitHub Pages
+
+The Pages build is separate from the normal Next.js server build:
+
+```sh
+npm run build:pages
+```
+
+It copies only the static app shell and shared browser/data modules into an ignored `.pages-staging/` directory, substitutes a static homepage with `aiEnabled={false}`, and runs Next.js with `output: "export"` and `basePath: "/Ocean-Atlas"`. The normal source tree is not renamed or deleted. API routes, the development guide fixture and server-only AI modules are absent from the exported `out/` artifact. The build script checks the hosted-demo notice, base-path-prefixed JavaScript references, referenced files and excluded routes.
+
+The workflow in `.github/workflows/pages.yml` runs `npm ci`, type checking, lint, unit tests and the normal production build for pull requests and pushes to `main`. A successful push to `main` additionally creates and deploys the static Pages artifact. Pull requests never deploy.
+
+Before the first deployment push, open **Settings → Pages** in `akmal-shaik/Ocean-Atlas` and select **GitHub Actions** as the source. Then push the workflow to `main`. A successful deployment is expected at `https://akmal-shaik.github.io/Ocean-Atlas/`; this README does not claim that URL is live before the workflow succeeds.
+
+The hosted demo is static and labels the AI guide unavailable. To use AI, run the project locally with the opt-in environment setup above. Never add an API key to GitHub Pages, repository variables or client-side environment variables.
+
 ## Publication posture
 
 The static explorer can be published with AI disabled. Keep `AI_ENABLED=false` and do not configure an API key in a public deployment. Before any public paid AI endpoint, add and verify authentication or a durable deployment-supported rate limiter before provider invocation.

@@ -11,12 +11,21 @@ Date: 2026-09-12. No deployment, GitHub publication or paid model request occurr
 | `npm test` | Passed: 2 files, 36 tests. |
 | `npm run eval:offline` | Passed: 22/22 mocked pipeline checks, 0 errors; human factual review remains PENDING. |
 | `npm run build` | Passed with Next.js 16.3.5; production routes generated successfully. |
+| `npm run build:pages` | Passed; static export validated for `/Ocean-Atlas/`. Only `/`, `/_not-found` and `/icon.svg` were emitted. |
 
 The first sandboxed offline-evaluation attempt failed before project code ran because `tsx` could not read Windows user information (`uv_os_get_passwd`). The same npm script was rerun outside that sandbox and passed. It made no API or network request. `npm ci` was not repeated because the existing dependency tree supported every requested project script and the lockfile was unchanged.
 
 ## Browser evidence
 
-The current local browser was inspected after the six-species update and showed the six dataset-driven species controls. Earlier tracked screenshots represented the four-species ruler comparison and were removed. Current publication screenshots are pending because this cleanup did not produce reliable repository image captures.
+The exported `out/` directory was served locally at `http://127.0.0.1:4173/Ocean-Atlas/`, matching the repository base path. In the Codex in-app Chromium browser:
+
+- The document and JavaScript chunks loaded beneath `/Ocean-Atlas/`.
+- Explore hydrated and rendered all six procedural animal models and scenery.
+- Selecting Green turtle opened the corresponding evidence panel. The guide showed `OFFLINE` and the hosted-static-demo notice; its input and submit button were disabled.
+- Compare rendered its semantic table, selectors and both independently framed model previews.
+- The home link resolved to `/Ocean-Atlas/`.
+
+The first browser tab lost its WebGL context while several local WebGL previews were open concurrently; the implemented HTML fallback appeared. A fresh tab rendered normally. This was a local browser resource condition, not a missing static chunk.
 
 No automated browser test suite is claimed. Physical touch-device, screen-reader, cross-browser, operating-system reduced-motion and induced WebGL context-loss checks remain pending.
 
@@ -30,7 +39,7 @@ Live API compatibility, live answer quality, human factual grading and AI latenc
 
 ## Performance evidence
 
-Performance was not benchmarked after adding the fifth and sixth species, underwater scenery and the side-by-side comparison. Earlier bundle and rendering measurements were removed and must not be reused.
+Performance was not benchmarked after adding the fifth and sixth species, underwater scenery and the side-by-side comparison. Earlier bundle and rendering measurements were removed and must not be reused. The Pages browser check above is functional verification, not a performance measurement.
 
 ## AI availability
 

@@ -1,5 +1,8 @@
 node_modules/
 .next/
+out/
+.pages-staging/
+.pages-preview/
 .env*
 !.env.example
 *.tsbuildinfo

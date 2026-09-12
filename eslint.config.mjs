@@ -4,5 +4,12 @@ import ts from "eslint-config-next/typescript";
 export default defineConfig([
   ...next,
   ...ts,
-  globalIgnores([".next/**", "evaluation/results/**", "next-env.d.ts"]),
+  globalIgnores([
+    ".next/**",
+    ".pages-staging/**",
+    ".pages-preview/**",
+    "out/**",
+    "evaluation/results/**",
+    "next-env.d.ts",
+  ]),
 ]);
